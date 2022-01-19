@@ -14,7 +14,7 @@ authRouter.post('/signup', async (req, res, next) => {
       user: userRecord,
       token: userRecord.token,
     };
-    res.status(200).json(output);
+    res.status(201).json(output);
   } catch (e) {
     next(e.message);
   }
@@ -29,8 +29,8 @@ authRouter.post('/signin', basicAuth, (req, res, next) => {
 });
 
 authRouter.get('/users', bearerAuth, async (req, res, next) => {
-  const users = await users.findAll({});
-  const list = users.map(user => user.username);
+  const userslist = await users.findAll();
+  const list = userslist.map(user => user.username);
   res.status(200).json(list);
 });
 

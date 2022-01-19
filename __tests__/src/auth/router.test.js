@@ -9,7 +9,7 @@ const { db } = require('../../../src/auth/models/index.js');
 const mockRequest = supertest(server);
 
 let users = {
-  admin: { username: 'admin', password: 'password' },
+  manager: { username: 'manager', password: 'password' },
   editor: { username: 'editor', password: 'password' },
   user: { username: 'user', password: 'password' },
 };
@@ -21,7 +21,6 @@ describe('Auth Router', () => {
     describe(`${userType} users`, () => {
 
       it('can create one', async (done) => {
-
         const response = await mockRequest.post('/signup').send(users[userType]);
         const userObject = response.body;
 
@@ -69,7 +68,7 @@ describe('Auth Router', () => {
       it('basic fails with known user and wrong password ', async (done) => {
 
         const response = await mockRequest.post('/signin')
-          .auth('admin', 'xyz')
+          .auth('merp', 'xyz')
         const userObject = response.body;
 
         expect(response.status).toBe(403);
